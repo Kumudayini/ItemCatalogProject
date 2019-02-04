@@ -1,0 +1,46 @@
+{% extends "main.html" %}
+{% block content %}
+<!--{% include "header.html" %}-->
+<div>
+    <br />
+    <br />
+</div>
+<div class="row" style="background-color:darkblue">
+    <div class="col-md-10">
+        <h2>Catalog App</h2>
+    </div>
+    <div class="col-md-2 text-right">
+        <h2><a href="{{url_for('showLogin')}}" style="font-size:large;color:white">Login</a></h2>
+    </div>
+</div>
+
+<div class='flash'>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+
+    <ul>
+        {% for message in messages %}
+        <li> <strong> {{ message }} </strong> </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+</div>
+<div class="row">
+    <div class="col-md-10">
+        <h2>{{item.category.name}}</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-10">
+        <h3>{{item.description}}</h3>
+    </div>
+</div>
+<div>
+    <a href='{{url_for('showItem', category_id=item.category.id)}}'>
+        <h3>Go back to the <b style="color:blue">Catalog</b></h3>
+    </a>
+</div>
+{% endblock %}
+

@@ -1,0 +1,55 @@
+{% extends "main.html" %}
+{% block content %}
+<div>
+    <br />
+    <br />
+</div>
+<div class="row" style="background-color:darkblue">
+    <div class="col-md-10">
+        <h2>Catalog App</h2>
+    </div>
+    <div class="col-md-2 text-right">
+        <h2><a href="{{url_for('showLogin')}}" style="font-size:large;color:white">Login</a></h2>
+    </div>
+</div>
+
+<div class='flash'>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+
+    <ul>
+        {% for message in messages %}
+        <li> <strong> {{ message }} </strong> </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Categories</h2>
+        {% for category in categories %}
+            <a href="{{url_for('showItem', category_id = category.id)}}">
+                <div style="color:red">
+                    <h3>{{category.name}}</h3>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+    <div class="col-md-8">
+
+        <h2>{{category_name}}</h2>
+        {% for item in items %}
+        <a href="{{url_for('showItemDescription', item_id = item.id)}}">
+            <div style="color:red">
+                <h3>{{item.title}}</h3>
+            </div>
+        </a>
+        {% else %}
+        <h3>No items currently available under the selected category!</h3>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

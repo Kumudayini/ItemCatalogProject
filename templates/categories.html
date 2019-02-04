@@ -1,0 +1,52 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
+<div class='flash'>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+
+    <ul>
+        {% for message in messages %}
+        <li> <strong> {{ message }} </strong> </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <a href="{{url_for('newCategory')}}" style="font-size:x-large;color:brown">Add Category</a>
+        <h2>Categories</h2>
+        {% for category in categories %}
+        <a href="{{url_for('showItem', category_id = category.id)}}">
+            <div style="color:red">
+                <h3>{{category.name}}</h3>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+    <div class="col-md-8">
+        <br /><br />
+              <div class="row">
+                  <a href="{{url_for('newItem', category_id = category.id)}}" style="font-size:x-large;color:brown">Add Item | </a>
+                  <a href="{{url_for('editCategory', category_id = category.id)}}" style="font-size:x-large;color:brown">Edit Category | </a>
+                  <a href="{{url_for('deleteCategory', category_id = category.id)}}" style="font-size:x-large;color:brown">Delete Category</a>
+              </div>
+        <div class="row">
+            <h2>{{category.name}}</h2>
+            {% for item in items %}
+            <a href="{{url_for('showItemDescription', item_id = item.id)}}">
+                <div style="color:red">
+                    <h3>{{item.title}}</h3>
+                </div>
+            </a>
+            {% else %}
+            <h3>No items currently available under the selected category!</h3>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

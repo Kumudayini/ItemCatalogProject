@@ -1,0 +1,75 @@
+<head>
+
+    <!--LOAD PRE-REQUISITES FOR GOOGLE SIGN IN -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
+    </script>
+
+    <script src="//apis.google.com/js/platform.js?onload=start"></script>
+
+    <!-- END PRE-REQUISITES FOR GOOGLE SIGN IN -->
+
+
+</head>
+
+
+<body>
+
+
+    <!-- GOOGLE PLUS SIGN IN-->
+
+
+    <div id="signinButton">
+        <span class="g-signin"
+              data-scope="openid email"
+              data-clientid="269011609927-v6m05a028eh267vhqvbc7e774mai5e2k.apps.googleusercontent.com"
+              data-redirecturi="postmessage"
+              data-accesstype="offline"
+              data-cookiepolicy="single_host_origin"
+              data-callback="signOutCallback"
+              data-approvalprompt="force">
+            hi
+        </span>
+    </div>
+
+    <div id="result"></div>
+
+    <script>
+        console.log('outside func')
+        signOutCallback()
+        function signOutCallback(authResult) {
+            console.log('Hi')
+  if (authResult['status'] == 200) {
+    // Hide the sign-in button now that the user is authorized
+    $('#signinButton').attr('style', 'display: none');
+    // Send the one-time-use code to the server, if the server responds, write a 'login successful' message to the web page and then redirect back to the main restaurants page
+    $.ajax({
+      type: 'POST',
+      url: '/gdisconnect',
+      processData: false,
+      data: authResult['status'],
+      contentType: 'application/octet-stream; charset=utf-8',
+      success: function(result) {
+        // Handle or verify the server response if necessary.
+        if (result) {
+          $('#result').html('Logout Successful!</br>'+ result + '</br>Redirecting...')
+         setTimeout(function() {
+          window.location.href = "/category/";
+         }, 4000);
+
+      } else if (authResult['status'] == 400) {
+    console.log('There was an error: ' + authResult['error']);
+  } else {
+        $('#result').html('Failed to make a server-side call. Check your configuration and console.');
+         }
+      }
+
+  }); } }
+    </script>
+
+
+
+   
+
+</body>
+
+  </html>

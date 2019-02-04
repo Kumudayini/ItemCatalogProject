@@ -1,0 +1,16 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<h3> Are you sure you want to delete <b>{{category.name}}</b>? </h3>
+
+<form action="#" method = 'post'>
+    <br />
+	<button type="submit" id="submit" type="submit">
+        Delete
+    </button>
+    <br />
+</form>
+<a href='{{url_for('showCategories')}}'>
+    <h3>Go back to the <b style="color:blue">Catalog</b></h3>
+</a>
+{% endblock %}

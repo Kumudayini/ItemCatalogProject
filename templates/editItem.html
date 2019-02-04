@@ -1,0 +1,47 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<script>
+            function selectCategory() {
+                if (document.frmEditItem.categorylist.value==0){
+                    alert('Please select a category');
+                    document.frmEditItem.categorylist.focus();
+                    return false
+                }
+            }
+</script>
+	<div class="row">
+        <div class="col-md-6 col-md-offset-1 padding-top">
+            <h2>Edit Item</h2>
+            <form name="frmEditItem"  action="#" method="post" onsubmit="return selectCategory();">
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <input type="text" required maxlength="100" class="form-control" name="title" value="{{item.title }}">
+                    <br />
+                    <label for="description">Description:</label>
+                    <textarea class="form-control" required maxlength="250" rows="5" name="description">{{item.description}}</textarea>
+                    <br />
+                    <label for="categorylist">Category:</label>
+                    <select required name="categorylist">
+                        <option value="0">--Select--</option>
+                        {% for category in categories %}
+                        {% if category.id == category_id %}
+                        <option value="{{category.id}}" selected>{{category.name}}</option>"
+                        {%  else %}
+                        <option value="{{category.id}}">{{category.name}}</option>"
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                    <br /><br />
+                    <button type="submit" id="submit">
+                        Save
+                    </button>
+                    
+                </div>
+                </form>
+            <a href='{{url_for('showCategories')}}'>
+                <h3>Go back to the <b style="color:blue">Catalog</b></h3>
+            </a>
+            </div>
+        </div>
+    {% endblock %}

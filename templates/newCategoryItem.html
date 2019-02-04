@@ -1,0 +1,61 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<div class='flash'>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+
+    <ul>
+        {% for message in messages %}
+        <li> <strong> {{ message }} </strong> </li>
+        {% endfor %}
+    </ul>
+    <!--<p>You are not logged in!</p>-->
+    {% endif %}
+    {% endwith %}
+
+</div>    
+        <script>
+            function selectCategory() {
+                if (document.frmCreateItem.categorylist.value==0){
+                    alert('Please select a category');
+                    document.frmCreateItem.categorylist.focus();
+                    return false
+                } 
+            }
+        </script>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-1 padding-top">
+                <div>
+                    <h2>New Item</h2>
+                    <br />
+                </div>
+                <form name="frmCreateItem" action="#" method="post" onsubmit="return selectCategory();">
+                    <div class="form-group">
+                        <label for="title">Title:</label>
+                        <input required type="text" maxlength="50" class="form-control" name="title" placeholder="Sports item title">
+                        <br />
+                        <label for="description">Description:</label>
+                        <textarea required class="form-control" maxlength="250" rows="3" name="description" placeholder="Description of the item"></textarea>
+                        <br />
+                        <label for="categorylist">Category:</label>
+                        <select required name="categorylist">
+                            <option value="0" Selected>--Select--</option>
+                            {% for category in categories %}
+                            <option value="{{category.id}}">{{category.name}}</option>"
+                            {% endfor %}
+                        </select>
+                        <br /><br />
+                        <button type="submit" id="submit" type="submit">
+                            Add New Item
+                        </button>
+                    </div>
+                </form>
+                <a href='{{url_for('showCategories')}}'>
+                    <h3>Go back to the <b style="color:blue">Catalog</b></h3>
+                </a>
+            </div>
+        </div>
+
+{% endblock %}
+
