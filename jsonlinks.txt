@@ -1,0 +1,17 @@
+------------------------------------------------
+
+1. All items belonging to a particular category
+http://localhost:5000/category/1/item/JSON
+------------------------------------------------
+
+2. Item details belonging to a category
+http://localhost:5000/category/1/item/1/JSON
+------------------------------------------------
+
+3. All categories details
+http://localhost:5000/category/JSON
+------------------------------------------------
+
+4. All items details
+http://localhost:5000/category/item/JSON
+------------------------------------------------
